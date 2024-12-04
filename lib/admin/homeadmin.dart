@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pembimbing/Form_nilai.dart';
-import 'package:flutter_application_1/pembimbing/list_pembimbing.dart';
-import 'package:flutter_application_1/pembimbing/profile.dart';
-import 'package:flutter_application_1/pembimbing/progress.dart';
-import 'package:flutter_application_1/pembimbing/viewProject.dart';
+import 'package:flutter_application_1/admin/Fromtambah_project.dart';
+import 'package:flutter_application_1/admin/list_Pendaftar.dart';
+import 'package:flutter_application_1/admin/list_pembimbing.dart';
+import 'package:flutter_application_1/admin/profile.dart';
 
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeAdmin extends StatefulWidget {
+  const HomeAdmin({super.key});
   
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeAdmin> createState() => _HomeAdminState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeAdminState extends State<HomeAdmin> {
   int _currentIndex = 0;
 
  @override
@@ -25,38 +24,39 @@ class _HomePageState extends State<HomePage> {
         selectedItemColor: const Color(0xFF00A884),
         unselectedItemColor: Colors.grey,
         currentIndex: _currentIndex,
-     onTap: (index) {
-                  if (index == 0) {
-                  // Jika tab Home diklik
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                } else if (index == 1) {
-                  // Navigasi ke halaman List Bimbingan
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ListBimbinganPage(),
-                    ),
-                  );
-                } else if (index == 2) {
-                  // Navigasi ke halaman Progress
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ListProgressPage(),
-                    ),
-                  );
-                } else if (index == 3) {
-                  // Navigasi ke halaman Profile
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfilePage(),
-                    ),
-                  );
-                }
-              },
+              onTap: (index) {
+            if (index == 0) {
+              // Jika tab Home diklik
+              setState(() {
+                _currentIndex = index;
+              });
+            } else if (index == 1) {
+              // Navigasi ke halaman List Bimbingan
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ListPendaftarPage(),
+                ),
+              );
+            } else if (index == 2) {
+              // Navigasi ke halaman Progress
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ListPembimbingAdmin(),
+                ),
+              );
+            } else if (index == 3) {
+              // Navigasi ke halaman Profile
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfileAdmin(),
+                ),
+              );
+            }
+          },
+
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -64,11 +64,11 @@ class _HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
-            label: 'Bimbingan',
+            label: 'Pendaftar',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart),
-            label: 'Progress',
+            label: 'Pembimbing',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      'Pembimbing',
+                      'Admin',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 24,
@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Jadwal Terdekat Anda',
+                          'Profil Anda',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -141,29 +141,29 @@ class _HomePageState extends State<HomePage> {
                         ),
                         SizedBox(height: 15),
                         Text(
-                          'Nama Peserta',
+                          'Nama Admin',
                           style: TextStyle(color: Colors.grey, fontSize: 14),
                         ),
                         Text(
-                          'Ahmad Dahlan',
+                          'Ahmad',
                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                         SizedBox(height: 15),
                         Text(
-                          'Project',
+                          'Lokasi Admin',
                           style: TextStyle(color: Colors.grey, fontSize: 14),
                         ),
                         Text(
-                          'Aplikasi Pendaftaran PKL',
+                          'Yogyakarta',
                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                         SizedBox(height: 15),
                         Text(
-                          'Tanggal Pertemuan',
+                          'Jumlah Pembimbing',
                           style: TextStyle(color: Colors.grey, fontSize: 14),
                         ),
                         Text(
-                          '21 November 2024, 08:00 WIB',
+                          '2',
                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                       ],
@@ -185,10 +185,11 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ViewProjectPage(),
+                              builder: (context) => ListPembimbingAdmin(),
                             ),
                           );
                         },
+                        
                         child: Container(
                           height: 100,
                           margin: const EdgeInsets.only(right: 8.0),
@@ -206,14 +207,10 @@ class _HomePageState extends State<HomePage> {
                               ),
                               SizedBox(height: 8),
                               Text(
-                                'View Project',
+                                'Daftar Pembimbing',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height: 4),
-                              Text(
-                                '2 Project Tersedia',
-                                style: TextStyle(color: Colors.grey),
-                              ),
+              
                             ],
                           ),
                         ),
@@ -228,7 +225,7 @@ class _HomePageState extends State<HomePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => FormNilaiAkhirPage(),
+                              builder: (context) => FormTambahProjectPage(),
                             ),
                           );
                         },
@@ -249,14 +246,10 @@ class _HomePageState extends State<HomePage> {
                               ),
                               SizedBox(height: 8),
                               Text(
-                                'Form Nilai Akhir',
+                                'Tambah Project',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(height: 4),
-                              Text(
-                                '',
-                                style: TextStyle(color: Colors.grey),
-                              ),
+                             
                             ],
                           ),
                         ),
@@ -272,3 +265,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+

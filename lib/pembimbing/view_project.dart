@@ -105,6 +105,8 @@ class _ViewProjectState extends State<ViewProject> {
                 const SizedBox(height: 8),
                 const Text('Tanggal Mulai:', style: TextStyle(fontSize: 14)),
                 const SizedBox(height: 16),
+                const Text('Tanggal Selesai:', style: TextStyle(fontSize: 14)),
+                const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () {
                     setState(() {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pembimbing/Homescreen.dart';
-import 'package:flutter_application_1/pembimbing/login.dart';
-import 'package:flutter_application_1/pembimbing/register.dart';
+import 'package:flutter_application_1/pembimbing/list_pembimbing.dart';
+import 'package:flutter_application_1/login.dart';
+import 'package:flutter_application_1/register.dart';
 
 
 
@@ -10,9 +11,10 @@ void main() {
     debugShowCheckedModeBanner: false,
     initialRoute: 'login',
     routes: {
-      'login': (context)=>SignInPage(),
-      'regis': (context)=>RegisterPage(),
-      'homescreen': (context)=>const Homescreen(),
+      'login': (context)=> const SignInPage(),
+      'regis': (context)=>const RegisterPage(),
+      'homescreen': (context)=>const HomePage(),
+      'listpembimbing': (context)=> const ListBimbinganPage(),
       
     },
   ));
