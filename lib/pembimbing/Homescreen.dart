@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:flutter_application_1/pembimbing/list_pembimbing.dart';
-import 'package:flutter_application_1/pembimbing/cek_progress.dart';
-import 'package:flutter_application_1/pembimbing/form_penilaian.dart';
-import 'package:flutter_application_1/pembimbing/login.dart';
-import 'package:flutter_application_1/pembimbing/view_project.dart';
 
 
 class Homescreen extends StatefulWidget {
@@ -114,14 +108,10 @@ class _HomescreenState extends State<Homescreen> {
                         buildMenuButton(context, 'Form Penilaian Akhir'),
                       ],
                     ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            if (showProfileCard)
-              ModalBarrier(
-                color: Colors.black.withOpacity(0.5),
-                dismissible: false,
+                ),
               ),
             if (showProfileCard)
               Positioned(
@@ -236,11 +226,4 @@ class _HomescreenState extends State<Homescreen> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Homescreen(),
-  ));
 }

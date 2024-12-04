@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_application_1/pembimbing/Homescreen.dart';
 import 'package:flutter_application_1/pembimbing/register.dart';
 
-
-// Sign In Page
 class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -101,7 +99,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
       child: TextField(
         controller: _controller,
         obscureText: _obscureText,
-        maxLength: (widget.label == 'Password') ? 12 : null, 
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.grey[300],
@@ -111,7 +108,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
             borderRadius: BorderRadius.circular(8.0),
             borderSide: BorderSide.none,
           ),
-          counterText: '',
           suffixIcon: widget.label == 'Password'
               ? IconButton(
                   icon: Icon(
@@ -131,11 +127,5 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }

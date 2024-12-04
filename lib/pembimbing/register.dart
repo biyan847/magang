@@ -131,16 +131,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 )
               : null,
         ),
-        inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'^[a-zA-Z0-9]*$')), // Allow only letters and numbers
-        ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 }
