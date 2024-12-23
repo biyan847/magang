@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FormNilaiAkhirPage extends StatelessWidget {
-  const FormNilaiAkhirPage({Key? key}) : super(key: key);
+  const FormNilaiAkhirPage({super.key});
 
   @override
   Widget build(BuildContext context) {

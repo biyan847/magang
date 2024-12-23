@@ -1,131 +1,133 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/admin/list_pembimbing.dart'; 
 
-class FormTambahPembimbingPage extends StatelessWidget {
-  const FormTambahPembimbingPage({Key? key}) : super(key: key);
+class TambahPembimbingPage extends StatefulWidget {
+  const TambahPembimbingPage({super.key});
+
+  @override
+  State<TambahPembimbingPage> createState() => _TambahPembimbingPageState();
+}
+
+class _TambahPembimbingPageState extends State<TambahPembimbingPage> {
+  // Daftar semua data pembimbing
+  final Map<String, String> allPembimbing = {
+    "3": "Muhammad Hanif",
+    "1": "Siswanto",
+    "2": "Santoso",
+  };
+
+  // Daftar pembimbing yang dipilih
+  List<Map<String, String>> selectedPembimbing = [];
+
+  // Controller untuk input pencarian
+  final TextEditingController _searchController = TextEditingController();
+
+  String? searchResultKey;
+
+  // Fungsi untuk filter data
+  void _filterPembimbing(String query) {
+    setState(() {
+      searchResultKey = allPembimbing.containsKey(query) ? query : null;
+    });
+  }
+
+  // Menambahkan pembimbing ke dalam list
+  void _addPembimbing() {
+    if (searchResultKey != null) {
+      setState(() {
+        final name = allPembimbing[searchResultKey!]!;
+        selectedPembimbing.add({
+          'name': name,
+          'email': '${name.toLowerCase().replaceAll(' ', '')}@mail.com',
+          'phone': '081234567890',
+          'department': 'Teknik Informatika',
+        });
+      });
+      // Snackbar Konfirmasi
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("$searchResultKey - ${allPembimbing[searchResultKey]} berhasil ditambahkan")),
+      );
+      _searchController.clear();
+      searchResultKey = null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Controller untuk input form
-    final TextEditingController namaController = TextEditingController();
-    final TextEditingController nikController = TextEditingController();
-    final TextEditingController ttlController = TextEditingController();
-    final TextEditingController emailController = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tambah Pembimbing'),
         backgroundColor: const Color(0xFF00A884),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Nama Pembimbing
-              const Text(
-                'Nama Pembimbing',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: namaController,
-                decoration: const InputDecoration(
-                  hintText: 'Masukkan nama pembimbing',
-                  border: OutlineInputBorder(),
+      body: Column(
+        children: [
+          // Input Pencarian
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              controller: _searchController,
+              onChanged: _filterPembimbing,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search),
+                hintText: 'Masukkan ID Pembimbing',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
+                filled: true,
+                fillColor: Colors.grey[200],
               ),
-              const SizedBox(height: 16),
+            ),
+          ),
 
-              // NIK
-              const Text(
-                'NIK',
-                style: TextStyle(fontWeight: FontWeight.bold),
+          // Menampilkan Hasil Pencarian
+          if (searchResultKey != null)
+            ListTile(
+              title: Text(
+                allPembimbing[searchResultKey!]!,
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: nikController,
-                decoration: const InputDecoration(
-                  hintText: 'Masukkan NIK',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.number,
-              ),
-              const SizedBox(height: 16),
-
-              // Tempat, Tanggal Lahir
-              const Text(
-                'Tempat, Tanggal Lahir',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: ttlController,
-                decoration: const InputDecoration(
-                  hintText: 'Masukkan tempat, tanggal lahir',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              // Email
-              const Text(
-                'Email',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: emailController,
-                decoration: const InputDecoration(
-                  hintText: 'Masukkan email',
-                  border: OutlineInputBorder(),
-                ),
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: 24),
-
-              // Tombol Tambah
-              ElevatedButton(
-                onPressed: () {
-                  // Logika untuk menambahkan pembimbing
-                  String nama = namaController.text.trim();
-                  String nik = nikController.text.trim();
-                  String ttl = ttlController.text.trim();
-                  String email = emailController.text.trim();
-
-                  if (nama.isEmpty ||
-                      nik.isEmpty ||
-                      ttl.isEmpty ||
-                      email.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Semua data harus diisi!'),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Pembimbing $nama berhasil ditambahkan!'),
-                      ),
-                    );
-                    Navigator.pop(context);
-                  }
-                },
+              trailing: ElevatedButton(
+                onPressed: _addPembimbing,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF00A884),
-                  minimumSize: const Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
                 ),
                 child: const Text(
                   'Tambah',
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
-            ],
+            ),
+
+          const SizedBox(height: 16),
+
+          // Tombol Lanjut ke List Pembimbing
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ListPembimbingAdmin(
+                        pembimbing: selectedPembimbing.map((e) => e['name']!).toList(),
+                      ),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF00A884),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                child: const Text(
+                  'Lihat List Pembimbing',
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

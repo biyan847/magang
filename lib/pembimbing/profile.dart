@@ -16,12 +16,12 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         backgroundColor: const Color(0xFF00A884),
         title: const Text("Profile"),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        //leading: IconButton(
+          //icon: const Icon(Icons.arrow_back),
+         // onPressed: () {
+           // Navigator.pop(context);
+         // },
+        //),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -34,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   CircleAvatar(
                     radius: 70,
-                    backgroundImage: const AssetImage('assets/images/profile_picture.png'), // Ganti dengan path gambar profil
+                    backgroundImage: const AssetImage('assets/profile_picture.png'), // Ganti dengan path gambar profil
                     backgroundColor: Colors.grey[200],
                   ),
                   Positioned(

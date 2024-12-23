@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/login.dart';
+// Halaman SignInPage Anda
 
-class ProfileAdmin extends StatefulWidget {
-  const ProfileAdmin({super.key});
+class ProfilepagePeserta extends StatefulWidget {
+  const ProfilepagePeserta({super.key});
 
   @override
-  _ProfileAdminState createState() => _ProfileAdminState();
+  _ProfilepagePesertaState createState() => _ProfilepagePesertaState();
 }
 
-class _ProfileAdminState extends State<ProfileAdmin> {
+class _ProfilepagePesertaState extends State<ProfilepagePeserta> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF00A884),
         title: const Text("Profile"),
-        //leading: IconButton(
-          //icon: const Icon(Icons.arrow_back),
-          //onPressed: () {
-           // Navigator.pop(HomeAdmin as BuildContext);
-         // },
+       // leading: IconButton(
+         // icon: const Icon(Icons.arrow_back),
+         // onPressed: () {
+           // Navigator.pop(context);
+          //},
         //),
       ),
       body: Padding(
@@ -33,7 +34,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
                 children: [
                   CircleAvatar(
                     radius: 70,
-                    backgroundImage: const AssetImage('assets/profile_picture.png'), // Ganti dengan path gambar profil
+                    backgroundImage: const AssetImage('assets/profile_picture.png'),
                     backgroundColor: Colors.grey[200],
                   ),
                   Positioned(
@@ -57,7 +58,7 @@ class _ProfileAdminState extends State<ProfileAdmin> {
               child: Column(
                 children: [
                   Text(
-                    'Ahmad Yato',
+                    'Yoan Biyan',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,

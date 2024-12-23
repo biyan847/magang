@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/admin/Fromtambah_project.dart';
-import 'package:flutter_application_1/admin/list_Pendaftar.dart';
-import 'package:flutter_application_1/admin/list_pembimbing.dart';
-import 'package:flutter_application_1/admin/profile.dart';
+import 'package:flutter_application_1/peserta/daftar_pkl.dart';
+import 'package:flutter_application_1/peserta/laman_progress.dart';
+import 'package:flutter_application_1/peserta/profile.dart';
+import 'package:flutter_application_1/peserta/view_nilai.dart';
+import 'package:flutter_application_1/peserta/viewproject.dart';
 
-class HomeAdmin extends StatefulWidget {
-  const HomeAdmin({super.key});
+class HomepagePeserta extends StatefulWidget {
+  const HomepagePeserta({super.key});
 
   @override
-  State<HomeAdmin> createState() => _HomeAdminState();
+  State<HomepagePeserta> createState() => _HomepagePesertaState();
 }
 
-class _HomeAdminState extends State<HomeAdmin> {
+class _HomepagePesertaState extends State<HomepagePeserta> {
   int _currentIndex = 0;
 
   // List halaman yang akan ditampilkan
   final List<Widget> _pages = [
-    const AdminDashboard(),
-    const TambahProjectPage(),
-    const ListPembimbingAdmin(),
-    const ProfileAdmin(),
+    const HomePageContent(),
+    const DaftarPklPage(),
+    const ProgressPage(),
+    const ProfilepagePeserta(),
   ];
 
   @override
@@ -47,11 +48,11 @@ class _HomeAdminState extends State<HomeAdmin> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
-            label: 'Project',
+            label: 'Daftar',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart),
-            label: 'Pembimbing',
+            label: 'Progress',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -63,8 +64,9 @@ class _HomeAdminState extends State<HomeAdmin> {
   }
 }
 
-class AdminDashboard extends StatelessWidget {
-  const AdminDashboard({super.key});
+// Widget konten halaman Home
+class HomePageContent extends StatelessWidget {
+  const HomePageContent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +92,7 @@ class AdminDashboard extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Admin',
+                    'Peserta PKL',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,
@@ -100,7 +102,8 @@ class AdminDashboard extends StatelessWidget {
                 ],
               ),
             ),
-// Jadwal Terdekat
+
+            // Jadwal Terdekat
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Container(
@@ -121,7 +124,7 @@ class AdminDashboard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Profil Anda',
+                      'Jadwal Anda',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -130,29 +133,29 @@ class AdminDashboard extends StatelessWidget {
                     ),
                     SizedBox(height: 15),
                     Text(
-                      'Nama Admin',
+                      'Project Anda',
                       style: TextStyle(color: Colors.grey, fontSize: 14),
                     ),
                     Text(
-                      'Ahmad',
+                      'Aplikasi Pendaftaran PKL',
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     SizedBox(height: 15),
                     Text(
-                      'Lokasi',
+                      'Progress',
                       style: TextStyle(color: Colors.grey, fontSize: 14),
                     ),
                     Text(
-                      'Yogyakarta',
+                      'Pembuatan design untuk aplikasi',
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     SizedBox(height: 15),
                     Text(
-                      'Jumlah Pembimbing',
+                      'Tanggal Pertemuan',
                       style: TextStyle(color: Colors.grey, fontSize: 14),
                     ),
                     Text(
-                      '2',
+                      '21 November 2024, 08:00 WIB',
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                   ],
@@ -160,35 +163,34 @@ class AdminDashboard extends StatelessWidget {
               ),
             ),
 
-            // Tombol Navigasi Cepat
+            // Tombol View Project dan Form Nilai Akhir
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 children: [
-                  // Daftar Pembimbing
+                  // View Project
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const ListPembimbingAdmin()),
+                          MaterialPageRoute(builder: (context) => const ViewProjectPage2()),
                         );
                       },
-                      child: _buildCard('Daftar Pembimbing', Icons.folder, const Color(0xFF00A884)),
+                      child: buildCard('View Project', Icons.folder, Colors.green, ''),
                     ),
                   ),
                   const SizedBox(width: 8),
-
-                  // Tambah Project
+                  // View Nilai Akhir
                   Expanded(
                     child: GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const FormTambahProjectPage()),
+                          MaterialPageRoute(builder: (context) => const ViewNilaiAkhirPage()),
                         );
                       },
-                      child: _buildCard('Tambah Project', Icons.edit, const Color(0xFFFFA726)),
+                      child: buildCard('View Nilai Akhir', Icons.edit, Colors.orange, ''),
                     ),
                   ),
                 ],
@@ -200,9 +202,10 @@ class AdminDashboard extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(String title, IconData icon, Color color) {
+  Widget buildCard(String title, IconData icon, Color color, String subtitle) {
     return Container(
       height: 100,
+      padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: color.withOpacity(0.1),
         borderRadius: BorderRadius.circular(16),
@@ -212,10 +215,9 @@ class AdminDashboard extends StatelessWidget {
         children: [
           Icon(icon, color: color, size: 30),
           const SizedBox(height: 8),
-          Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
+          Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 4),
+          Text(subtitle, style: const TextStyle(color: Colors.grey)),
         ],
       ),
     );

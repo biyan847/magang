@@ -5,10 +5,9 @@ import 'package:flutter_application_1/pembimbing/profile.dart';
 import 'package:flutter_application_1/pembimbing/progress.dart';
 import 'package:flutter_application_1/pembimbing/viewProject.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-  
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -16,47 +15,32 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
- @override
+  // List halaman yang ditampilkan
+  final List<Widget> _pages = [
+    const HomePageContent(),
+    const ListBimbinganPage(),
+    const ListProgressPage(),
+    const ProfilePage(),
+  ];
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5), 
+      backgroundColor: const Color(0xFFF5F5F5),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: const Color(0xFF00A884),
         unselectedItemColor: Colors.grey,
         currentIndex: _currentIndex,
-     onTap: (index) {
-                  if (index == 0) {
-                  // Jika tab Home diklik
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                } else if (index == 1) {
-                  // Navigasi ke halaman List Bimbingan
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ListBimbinganPage(),
-                    ),
-                  );
-                } else if (index == 2) {
-                  // Navigasi ke halaman Progress
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ListProgressPage(),
-                    ),
-                  );
-                } else if (index == 3) {
-                  // Navigasi ke halaman Profile
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ProfilePage(),
-                    ),
-                  );
-                }
-              },
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -76,198 +60,168 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header
-              Container(
+    );
+  }
+}
+
+class HomePageContent extends StatelessWidget {
+  const HomePageContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header
+            Container(
+              width: double.infinity,
+              color: const Color(0xFF00A884),
+              padding: const EdgeInsets.all(20),
+              child: const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Hello,',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Peserta PKL',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Jadwal Terdekat
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
                 width: double.infinity,
-                color: const Color(0xFF00A884),
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 10,
+                      offset: const Offset(0, 5),
+                    ),
+                  ],
+                ),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Hello,',
+                      'Jadwal Anda',
                       style: TextStyle(
-                        color: Colors.white,
                         fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF00A884),
                       ),
                     ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 15),
                     Text(
-                      'Pembimbing',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      'Nama Peserta',
+                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                    ),
+                    Text(
+                      'Ahmad Dahlan',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    SizedBox(height: 15),
+                    Text(
+                      'Project',
+                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                    ),
+                    Text(
+                      'Pembuatan design untuk aplikasi',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    SizedBox(height: 15),
+                    Text(
+                      'Tanggal Pertemuan',
+                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                    ),
+                    Text(
+                      '21 November 2024, 08:00 WIB',
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                   ],
                 ),
               ),
+            ),
 
-              // Jadwal Terdekat
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    width: 500,
-                    padding: const EdgeInsets.all(24),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 10,
-                          offset: const Offset(0, 5),
-                        ),
-                      ],
-                    ),
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Jadwal Terdekat Anda',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF00A884),
-                          ),
-                        ),
-                        SizedBox(height: 15),
-                        Text(
-                          'Nama Peserta',
-                          style: TextStyle(color: Colors.grey, fontSize: 14),
-                        ),
-                        Text(
-                          'Ahmad Dahlan',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                        ),
-                        SizedBox(height: 15),
-                        Text(
-                          'Project',
-                          style: TextStyle(color: Colors.grey, fontSize: 14),
-                        ),
-                        Text(
-                          'Aplikasi Pendaftaran PKL',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                        ),
-                        SizedBox(height: 15),
-                        Text(
-                          'Tanggal Pertemuan',
-                          style: TextStyle(color: Colors.grey, fontSize: 14),
-                        ),
-                        Text(
-                          '21 November 2024, 08:00 WIB',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                        ),
-                      ],
+            // Tombol View Project dan Form Nilai Akhir
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                  // View Project
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ViewProjectPage()),
+                        );
+                      },
+                      child: _buildCard(
+                          'View Project', Icons.folder, const Color(0xFF00A884)),
                     ),
                   ),
-                ),
-              ),
+                  const SizedBox(width: 8),
 
-              // Tombol View Project dan Form Nilai Akhir
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  children: [
-                    // View Project
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          // Navigasi ke halaman View Project
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ViewProjectPage(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          height: 100,
-                          margin: const EdgeInsets.only(right: 8.0),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFE6F7F1),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.folder,
-                                color: Color(0xFF00A884),
-                                size: 30,
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                'View Project',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                '2 Project Tersedia',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                  // Form Nilai Akhir
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const FormNilaiAkhirPage()),
+                        );
+                      },
+                      child: _buildCard(
+                          'Form Nilai Akhir', Icons.edit, const Color(0xFFFFA726)),
                     ),
-
-                    // Form Nilai Akhir
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          // Aksi tombol Form Nilai Akhir
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FormNilaiAkhirPage(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          height: 100,
-                          margin: const EdgeInsets.only(left: 8.0),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFFFFF4E6),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.edit,
-                                color: Color(0xFFFFA726),
-                                size: 30,
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                'Form Nilai Akhir',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                '',
-                                style: TextStyle(color: Colors.grey),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildCard(String title, IconData icon, Color color) {
+    return Container(
+      height: 100,
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: color, size: 30),
+          const SizedBox(height: 8),
+          Text(
+            title,
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ],
       ),
     );
   }

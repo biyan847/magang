@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FormTambahProjectPage extends StatelessWidget {
-  const FormTambahProjectPage({Key? key}) : super(key: key);
+  const FormTambahProjectPage({super.key});
 
   @override
   Widget build(BuildContext context) {

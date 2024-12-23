@@ -3,7 +3,7 @@ import 'package:flutter_application_1/admin/Fromtambah_project.dart';
 
 
 class TambahProjectPage extends StatelessWidget {
-  const TambahProjectPage({Key? key}) : super(key: key);
+  const TambahProjectPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -176,8 +176,7 @@ class DetailRow extends StatelessWidget {
   final String label;
   final String value;
 
-  const DetailRow({Key? key, required this.label, required this.value})
-      : super(key: key);
+  const DetailRow({super.key, required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {

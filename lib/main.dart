@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pembimbing/Homescreen.dart';
-import 'package:flutter_application_1/pembimbing/list_pembimbing.dart';
+import 'package:flutter_application_1/admin/homeadmin.dart';
 import 'package:flutter_application_1/login.dart';
+import 'package:flutter_application_1/pembimbing/Homescreen.dart';
+import 'package:flutter_application_1/peserta/homescreen.dart';
 import 'package:flutter_application_1/register.dart';
 
 
@@ -13,9 +14,11 @@ void main() {
     routes: {
       'login': (context)=> const SignInPage(),
       'regis': (context)=>const RegisterPage(),
-      'homescreen': (context)=>const HomePage(),
-      'listpembimbing': (context)=> const ListBimbinganPage(),
-      
+      'homeAdmin': (context) => const HomeAdmin(),
+      'homeOperator': (context) => const HomePage(),
+      'homePeserta': (context) => const HomepagePeserta(),
+     
+
     },
   ));
 }

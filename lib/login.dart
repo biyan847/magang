@@ -1,19 +1,98 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/admin/homeadmin.dart';
 import 'package:flutter_application_1/pembimbing/Homescreen.dart';
+import 'package:flutter_application_1/peserta/homescreen.dart';
 import 'package:flutter_application_1/register.dart';
 
-
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
+  State<SignInPage> createState() => _SignInPageState();
+}
 
+class _SignInPageState extends State<SignInPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  bool isLoading = false; // Untuk indikator loading
+
+  void login() async {
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    if (email.isEmpty || password.isEmpty) {
+      // Validasi input kosong
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Input Tidak Valid'),
+          content: const Text('Harap masukkan email dan password.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+
+    // Simulasi proses login
+    await Future.delayed(const Duration(seconds: 2));
+
+    setState(() {
+      isLoading = false;
+    });
+
+    if (email == 'admin@mail.com' && password == '123') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomeAdmin(),
+        ),
+      );
+    } else if (email == 'operator12@mail.com' && password == '123') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomePage(),
+        ),
+      );
+    } else if (email == 'DummyPeserta@mail.com' && password == '123') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const HomepagePeserta(),
+        ),
+      );
+    } else {
+      // Tampilkan pesan error login
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Login Gagal'),
+          content: const Text('Email atau password yang Anda masukkan salah.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF00A884), // Warna hijau utama
+      backgroundColor: const Color(0xFF00A884),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -74,7 +153,8 @@ class SignInPage extends StatelessWidget {
                     controller: emailController,
                     decoration: InputDecoration(
                       labelText: 'Email',
-                      prefixIcon: const Icon(Icons.email, color: Color(0xFF00A884)),
+                      prefixIcon:
+                          const Icon(Icons.email, color: Color(0xFF00A884)),
                       filled: true,
                       fillColor: Colors.grey[200],
                       border: const OutlineInputBorder(
@@ -89,7 +169,8 @@ class SignInPage extends StatelessWidget {
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      prefixIcon: const Icon(Icons.lock, color: Color(0xFF00A884)),
+                      prefixIcon:
+                          const Icon(Icons.lock, color: Color(0xFF00A884)),
                       filled: true,
                       fillColor: Colors.grey[200],
                       border: const OutlineInputBorder(
@@ -100,48 +181,7 @@ class SignInPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {
-                      // Logika pengecekan email dan password
-                      String email = emailController.text.trim();
-                      String password = passwordController.text.trim();
-
-                      if (email == 'admin12@mail.com' && password == '123') {
-                        // Navigasi ke HomeAdmin
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomeAdmin(),
-                          ),
-                        );
-                      } else if (email == 'operator12@mail.com' &&
-                          password == '123') {
-                        // Navigasi ke HomePage
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomePage(),
-                          ),
-                        );
-                      } else {
-                        // Tampilkan pesan error
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Login Gagal'),
-                            content: const Text(
-                                'Email atau password yang Anda masukkan salah.'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          ),
-                        );
-                      }
-                    },
+                    onPressed: isLoading ? null : login,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF00A884),
                       shape: RoundedRectangleBorder(
@@ -149,13 +189,17 @@ class SignInPage extends StatelessWidget {
                       ),
                       minimumSize: const Size(double.infinity, 50),
                     ),
-                    child: const Text(
-                      'Sign In',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                      ),
-                    ),
+                    child: isLoading
+                        ? const CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation(Colors.white),
+                          )
+                        : const Text(
+                            'Sign In',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
                   ),
                   const SizedBox(height: 10),
                   Center(
